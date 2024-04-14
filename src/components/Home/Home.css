@@ -1,8 +1,4 @@
-.home_container{
-    display: flex;
-    justify-content: space-evenly;
-    margin: 40px 40px;
-}
+
 .home_title{
   font-family: 'Lobster', cursive;
   font-size: 3rem;

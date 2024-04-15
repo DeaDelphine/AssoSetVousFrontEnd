@@ -2,6 +2,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
+import { Link } from 'react-router-dom';
+import '../Categories/Categories.css';
 
 
 function Categories() {
@@ -25,18 +27,18 @@ useEffect(() => {
     
 
   return (
-    <div className="container my-5">
+     <div className="container my-5">
             <div className="row justify-content-center">
-                <div className="col-md-10 col-lg-8">
-                    <div className="row align-items-center">
-                        {/* Afficher les catégories ici */}
-                        <ul>
-                            {categories.map((category, index) => (
-                                <li key={index}>{category.name}</li>
-                            ))}
-                        </ul>
+                {categories.map((category, index) => (
+                    <div key={index} className="col-md-4 mb-4">
+                        <div className="position-relative">
+                            <Link to="#"><img src={category.categoryImage} alt={category.name} className="img-fluid mb-2 opacity-50 image-hover category-image" /></Link>
+                                <div className="position-absolute top-50 start-50 translate-middle text-white fs-3 fw-bold">
+                                    <div>{category.name}</div>
+                                </div>
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
         </div>
     );

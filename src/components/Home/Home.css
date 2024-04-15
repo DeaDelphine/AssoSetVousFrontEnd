@@ -4,13 +4,14 @@
   font-size: 3rem;
   color: #438FA4;
   display: flex;
-  justify-content: center;
-  
+  justify-content: space-evenly; 
 }
 
 .home_content{
     display: flex;
     flex-direction: column;
-    margin: 20px 20px;
-    
+    margin: 20px 20px;  
+}
+#logo_home{
+  width: 15%;
 }

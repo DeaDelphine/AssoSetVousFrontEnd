@@ -12,7 +12,7 @@ function Categories() {
 useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const data = await useFetch('GET', '/categories/getAll');
+                const data = await useFetch('GET', '/api/categories');
                 setCategories(data);
                 console.log(data);
             } catch (err) {

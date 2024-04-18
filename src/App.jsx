@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import Associations from './components/Associations/Associations'
-import Evènements from './components/Evènements/Evènements'
+import Evènements from './components/Evenements/Evenements'
 import MonEspace from './components/MonEspace/MonEspace'
 import NousContacter from './components/NousContacter/NousContacter'
 

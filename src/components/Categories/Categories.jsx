@@ -14,7 +14,6 @@ useEffect(() => {
             try {
                 const data = await useFetch('GET', '/api/categories');
                 setCategories(data);
-                console.log(data);
             } catch (err) {
                 setError(err);
                 
@@ -28,7 +27,10 @@ useEffect(() => {
 
   return (
      <div className="container my-5">
-            <div className="row justify-content-center">
+          <div className="row justify-content-center">
+              <div className='title_page text-center'>
+                  Nos catégories
+              </div>
                 {categories.map((category, index) => (
                     <div key={index} className="col-md-4 mb-4">
                         <div className="position-relative">

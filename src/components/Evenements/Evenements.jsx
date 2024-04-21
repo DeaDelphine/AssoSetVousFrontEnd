@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -39,7 +40,7 @@ const Evenements = () => {
               <div className="card-body">
                 <h5 className="card-title">{evenement.name}</h5>
                 <p className="card-text text-truncate">{evenement.content}</p>
-                <a href="#" className="btn btn-dark">Voir l'évènement</a>
+                <NavLink className="btn btn-dark" to={`/evenement/${evenement.id}`} state={{ from: evenement.id }}>Voir l'évènement</NavLink>
               </div>
             </div>
           </div>

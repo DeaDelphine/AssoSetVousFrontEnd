@@ -9,6 +9,9 @@ import Associations from './components/Associations/Associations'
 import Evènements from './components/Evenements/Evenements'
 import MonEspace from './components/MonEspace/MonEspace'
 import NousContacter from './components/NousContacter/NousContacter'
+import { PageAssociation } from './components/Associations/PageAssociation'
+import PageEvent from './components/Evenements/PageEvent'
+import CategoryPage from './components/Categories/CategoryPage'
 
 function App() {
   
@@ -20,10 +23,13 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/categories" element={<Categories />} />
+        <Route exact path="/associations/category/:categorie" element={<CategoryPage />} />
         <Route exact path="/associations" element={<Associations />} />
         <Route exact path="/evenements" element={<Evènements />} />
         <Route exact path="/monEspace" element={<MonEspace />} />
         <Route exact path="/nousContacter" element={<NousContacter />} />
+        <Route exact path="/association/:associationSlug" element={<PageAssociation />} />
+        <Route exact path="/evenement/:id" element={<PageEvent />} />
         </Routes>
         <Footer />
         

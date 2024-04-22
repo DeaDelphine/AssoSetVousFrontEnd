@@ -40,6 +40,7 @@ const CategoryPage = () => {
                   </div>
               ))}
           </div>
+          <NavLink to='/categories' className="btn btn-dark">Retour</NavLink>
         </div>
   )
 }

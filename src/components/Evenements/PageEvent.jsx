@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const PageEvent = () => {
   const location = useLocation();
@@ -49,6 +49,7 @@ const PageEvent = () => {
             </h4>
             <hr className="border border-dark mb-5" />
             <p>{evenement.content}</p>
+            <NavLink to='/evenements' className="btn btn-dark">Retour</NavLink>
           </div>
         </div>
       </div>

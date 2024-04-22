@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export const PageAssociation = () => {
     const location = useLocation();
@@ -36,6 +36,10 @@ export const PageAssociation = () => {
                         </h4>
                         <hr className="border border-dark mb-5" />
                         <p>{association.content}</p>
+                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <NavLink className='btn btn-warning' to={`/evenements/association/${association.id}`} state={{ from: association.id }}>Voir les évènements</NavLink>
+                        <NavLink to='/associations' className="btn btn-dark">Retour</NavLink>
+                    </div>
                     </div>
                 </div>
             </div>

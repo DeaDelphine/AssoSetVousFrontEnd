@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
@@ -11,77 +12,57 @@ const Evenements = () => {
   const [originalEvents, setOriginalEvents] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [associations, setAssociations] = useState([]);
+  const [title, setTitle] = useState('');
+  const [date, setDate] = useState('');
+  const [assoId, setAssoId] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     try {
       useFetch('GET', '/api/events').then((data) => {
         setEvenements(data);
+        setNoResults(data.length === 0);
         setOriginalEvents(data);
-        console.log(data);
       });
       useFetch('GET', '/api/associations').then((data) => {
         setAssociations(data);
       });
+      setLoading(false);
     } catch (err) {
       setError(err);
     }
   }, []);
+
+  const filters = () => {
+    const filteredEvenements = originalEvents.filter((item) => {
+      const titleMatch = title == '' || item.event.title.toLowerCase().includes(title.toLowerCase());
+      const dateMatch = date == '' || new Date(item.event.dateStart).toLocaleDateString() === new Date(date).toLocaleDateString();
+      const assoIdMatch = assoId == '' || item.assoId && item.assoId.toString() === assoId.toString();
+      console.log(titleMatch);
+      console.log(dateMatch);
+      console.log(assoIdMatch);
+      return titleMatch && dateMatch && assoIdMatch;
+    });
+    setEvenements(filteredEvenements);
+    setNoResults(filteredEvenements.length === 0);
+  }
+
+  useEffect(() => { 
+    filters();
+  }, [title, date, assoId]);
+  
+
   const handleSearchChange = (e) => {
-    const searchTerm = e.target.value;
-
-    if (searchTerm.trim() === '') {
-      setEvenements(originalEvents);
-      setNoResults(false); 
-    }
-  };
- 
-  const handleSearch = (searchTerm) => {
-    if (searchTerm.trim() === '') {
-      setEvenements(originalEvents); 
-      setNoResults(false);
-      return;
-    }
-    const filteredEvenements = originalEvents.filter((evenement) =>
-      evenement.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    setEvenements(filteredEvenements);
-    setNoResults(filteredEvenements.length === 0);
+    setTitle(e.target.value);
   };
 
-  const handleDateChange = (date) => {
-    if (date.trim() === '') {
-      setEvenements(originalEvents);
-      setNoResults(false); 
-      return;
-    }
-
-    const filteredEvenements = originalEvents.filter((evenement) =>
-      new Date(evenement.dateStart).toLocaleDateString() === new Date(date).toLocaleDateString()
-    );
-
-    setEvenements(filteredEvenements);
-
-    setNoResults(filteredEvenements.length === 0);
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
   };
 
-  const handleAssociationChange = (associations) => {
-    if (associations.trim() === '') {
-      setEvenements(originalEvents);
-      setNoResults(false); 
-      return;
-    }
-
-    const filteredEvenements = originalEvents.filter((evenement) => {
-      evenement.assoId == associations
-    }
-    );
-
-
-    setEvenements(filteredEvenements);
-
-    
-    setNoResults(filteredEvenements.length === 0);
+  const handleAssociationChange = (e) => {
+    setAssoId(e.target.value);
   };
 
 
@@ -90,13 +71,15 @@ const Evenements = () => {
       <div className="row justify-content-center">
         <div className="title_page text-center">Nos évènements</div>
         <FilterComponent
-          onSearch={handleSearch}
           onSearchChange={handleSearchChange}
           onDateChange={handleDateChange}
           onAssociationChange={handleAssociationChange}
           associations={associations}
+          title={title}
+          date={date}
+          assoId={assoId}
         />
-        {noResults && (
+        {noResults && !loading &&(
           <div className="alert alert-warning mt-3" role="alert">
             Aucun résultat trouvé.
           </div>
@@ -112,7 +95,6 @@ const Evenements = () => {
             </tr>
           </thead>
           <tbody>
-            {console.log(evenements)}
             {evenements.map((evenement, index) => (
               <tr key={index}>
                 <td><img src={evenement.event.image} alt={evenement.event.title} style={{ width: '50px', height: '50px' }} /></td>

@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
-import useFetch from '../../hooks/useFetch';
 import { NavLink } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 import FilterComponent from './FiltersSearch';
 
 const Evenements = () => {
@@ -48,10 +48,10 @@ const Evenements = () => {
     setNoResults(filteredEvenements.length === 0);
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     filters();
   }, [title, date, assoId]);
-  
+
 
   const handleSearchChange = (e) => {
     setTitle(e.target.value);
@@ -69,46 +69,41 @@ const Evenements = () => {
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
-        <div className="title_page text-center">Nos évènements</div>
-        <FilterComponent
-          onSearchChange={handleSearchChange}
-          onDateChange={handleDateChange}
-          onAssociationChange={handleAssociationChange}
-          associations={associations}
-          title={title}
-          date={date}
-          assoId={assoId}
-        />
-        {noResults && !loading &&(
-          <div className="alert alert-warning mt-3" role="alert">
-            Aucun résultat trouvé.
-          </div>
-        )}
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Titre</th>
-              <th>Début du contenu</th>
-              <th>Date de début</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="col-md-10">
+          <div className="title_page text-center">Nos évènements</div>
+          <FilterComponent
+            onSearchChange={handleSearchChange}
+            onDateChange={handleDateChange}
+            onAssociationChange={handleAssociationChange}
+            associations={associations}
+            title={title}
+            date={date}
+            assoId={assoId}
+          />
+          {noResults && !loading && (
+            <div className="alert alert-warning mt-3" role="alert">
+              Aucun résultat trouvé.
+            </div>
+          )}
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {evenements.map((evenement, index) => (
-              <tr key={index}>
-                <td><img src={evenement.event.image} alt={evenement.event.title} style={{ width: '50px', height: '50px' }} /></td>
-                <td>{evenement.event.title}</td>
-                <td>{evenement.event.content.slice(0, 50)}...</td>
-                <td>{new Date(evenement.event.dateStart).toLocaleDateString()}</td>
-                <td>
-                  <NavLink className="btn btn-dark me-2" to={`/evenement/${evenement.event.id}`} state={{ from: evenement.event.id }}>Voir l'évènement</NavLink>
-                  <button className="btn btn-primary">S'inscrire</button>
-                </td>
-              </tr>
+              <div key={index} className="col">
+                <div className="card h-100">
+                  <img src={evenement.event.image} className="card-img-top" alt={evenement.event.title} />
+                  <div className="card-body">
+                    <h5 className="card-title">{evenement.event.title}</h5>
+                    <p className="card-text">{evenement.event.content.slice(0, 50)}...</p>
+                  </div>
+                  <div className="card-footer">
+                    <small className="text-muted">Date de début : {new Date(evenement.event.dateStart).toLocaleDateString()}</small>
+                    <NavLink className="btn btn-dark me-2" to={`/evenement/${evenement.event.id}`} state={{ from: evenement.event.id }}>Voir l'évènement</NavLink>
+                    <button className="btn btn-primary">S'inscrire</button>
+                  </div>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
   );

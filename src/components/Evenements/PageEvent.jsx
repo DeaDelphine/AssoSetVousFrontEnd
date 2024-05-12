@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { NavLink, useLocation } from 'react-router-dom';
-import { format } from 'date-fns';
 
 const PageEvent = () => {
   const location = useLocation();
@@ -58,7 +57,7 @@ const PageEvent = () => {
               <div className="d-grid gap-2 d-md-flex justify-content-md-start">
                 <NavLink to='/evenements' className="btn btn-dark me-md-2 mb-2">Retour</NavLink>
                 <NavLink to={`/association/${evenement.assoId}`} className="btn btn-primary me-md-2 mb-2" state={{ from: evenement.assoId}}>Voir l'association</NavLink>
-                <button className="btn btn-success mb-2">Je m'inscris</button>
+                <NavLink to='/evenement/register' className="btn btn-success mb-2">Je m'inscris</NavLink>
               </div>
             </div>
           </div>

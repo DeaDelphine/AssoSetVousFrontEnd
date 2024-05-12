@@ -1,15 +1,29 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import {  NavLink } from "react-router-dom"
+import useFetch from '../../hooks/useFetch';
+import { useNavigate } from 'react-router-dom';
 
 
-import { useState } from 'react';
+function Header({ handleIsAuthenticated, isAuthenticated }) {
+  const navigate = useNavigate(); 
 
-function Header() {
-  // État pour vérifier si l'utilisateur est connecté
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleLogout = () => {
-    // Code pour déconnecter l'utilisateur
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      // Appel la route API pour la déconnexion en utilisant useFetch
+      const response = await useFetch('POST', '/api/logout');
+      if (response){
+      // Gére la réponse en fonction de ce que l'API renvoie
+      handleIsAuthenticated();
+      // Redirige l'utilisateur vers la page d'accueil
+        navigate('/connection');
+      }
+    } catch (error) {
+      // Gérez les erreurs
+      console.error('Erreur lors de la déconnexion:', error);
+    }
   };
 
   return (
@@ -32,14 +46,15 @@ function Header() {
                   Mon Espace
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  {!isAuthenticated ? (
+                  {isAuthenticated &&
+                    <li><NavLink className="dropdown-item" onClick={handleLogout}>Déconnexion</NavLink></li>
+                  }
+                  {!isAuthenticated &&
                     <>
                       <li><NavLink className="dropdown-item" to="/connection">Connexion</NavLink></li>
-                      <li><NavLink className="dropdown-item" href="#">Inscription</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/register">Inscription</NavLink></li>
                     </>
-                  ) : (
-                    <li><button className="dropdown-item" onClick={handleLogout}>Déconnexion</button></li>
-                  )}
+                  }
                 </ul>
               </div>
               <NavLink className="nav-link fs-5" to="/nousContacter">Nous contacter</NavLink>

@@ -1,5 +1,5 @@
 
-import { Route, Router, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Categories from './components/Categories/Categories'
 import Footer from './components/Footer/Footer'
@@ -15,29 +15,46 @@ import CategoryPage from './components/Categories/CategoryPage'
 import EventsByAsso from './components/Evenements/EventsByAsso'
 import EventRegistrationForm from './components/Form/EventRegistrationForm'
 import LoginPage from './components/User/LoginPage'
+import { useState } from 'react'
+import Register from './components/User/Register'
+
 
 function App() {
-  
+  // État pour vérifier si l'utilisateur est connecté
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleIsAuthenticated = () => {
+    setIsAuthenticated(!isAuthenticated);
+  }
 
   return (
     <>
       
-      <Header />
+      <Header handleIsAuthenticated={handleIsAuthenticated} isAuthenticated={isAuthenticated} />
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/categories" element={<Categories />} />
-        <Route exact path="/associations/category/:categorie" element={<CategoryPage />} />
-        <Route exact path="/associations" element={<Associations />} />
-        <Route exact path="/evenements" element={<Evènements />} />
-        <Route exact path="/evenements/association/:association" element={<EventsByAsso />} />
-        <Route exact path="/monEspace" element={<MonEspace />} />
-        <Route exact path="/nousContacter" element={<NousContacter />} />
-        <Route exact path="/association/:associationSlug" element={<PageAssociation />} />
-        <Route exact path="/evenement/:id" element={<PageEvent />} />
-        <Route exact path="/evenement/register" element={<EventRegistrationForm />} />
-        <Route exact path="/connection" element={<LoginPage />} />
+            <Route exact path="/" element={<Home />} />
+        {!isAuthenticated &&
+          
+          <Route  path="/*" element={<LoginPage handleIsAuthenticated={handleIsAuthenticated} />} />
+         
+        }
+        {isAuthenticated && (
+          <>
+            <Route exact path="/categories" element={<Categories />} />
+            <Route exact path="/associations/category/:categorie" element={<CategoryPage />} />
+            <Route exact path="/associations" element={<Associations />} />
+            <Route exact path="/evenements" element={<Evènements />} />
+            <Route exact path="/evenements/association/:association" element={<EventsByAsso />} />
+            <Route exact path="/monEspace" element={<MonEspace />} />
+            <Route exact path="/association/:associationSlug" element={<PageAssociation />} />
+            <Route exact path="/evenement/:id" element={<PageEvent />} />
+            <Route exact path="/evenement/register" element={<EventRegistrationForm />} />
+          </>
+        )}
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/nousContacter" element={<NousContacter />} />
         </Routes>
-        <Footer />
+      <Footer />
         
     </>
   )

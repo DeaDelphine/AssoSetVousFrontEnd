@@ -23,13 +23,20 @@ const useFetch = async (method, fetchRoute, dataToSend = {}) => {
         return false;
     }
 
+    const token = localStorage.getItem('token');
+    const headers = {
+        'Content-Type': 'application/json',
+    }
+    if (fetchRoute != '/api/login' && token != null) {
+        headers.token =  token;
+    }
     let config = {
         method: method,
         url: `http://localhost:8000${fetchRoute}`,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: headers,
     };
+
+    console.log(config);
 
     if (method === 'GET') {
         config.params = dataToSend;

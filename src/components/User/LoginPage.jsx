@@ -30,8 +30,10 @@ const LoginPage = ({ handleIsAuthenticated }) => {
 
             // Appel la route API pour la connexion en utilisant useFetch
             const response = await useFetch('POST', '/api/login', userData);
-            console.log(response);
+            
             if (response && response.token) {
+                console.log(response.token);
+                localStorage.setItem('token', response.token);
                 handleIsAuthenticated();
                 // Redirige l'utilisateur vers la page d'accueil
                 navigate('/');
@@ -66,7 +68,7 @@ const LoginPage = ({ handleIsAuthenticated }) => {
                                 <div className="d-grid">
                                     <button type="submit" className="btn btn-primary">Se connecter</button>
                                 </div>
-                                <div>Pas encore inscrit ? <NavLink to="/register">Inscrivez-vous</NavLink></div>
+                                <div>Pas encore inscrit ? <NavLink to="/inscription">Inscrivez-vous</NavLink></div>
                             </form>
                         </div>
                     </div>

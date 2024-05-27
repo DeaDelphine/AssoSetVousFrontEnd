@@ -38,7 +38,6 @@ export const PageAssociation = () => {
                     return eventData;
                 });
                 setEventDates(dates);
-                console.log(dates);
             } catch (error) {
                 setError(error);
 

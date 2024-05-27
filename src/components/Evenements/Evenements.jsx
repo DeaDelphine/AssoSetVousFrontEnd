@@ -2,11 +2,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import FilterComponent from './FiltersSearch';
 
 const Evenements = () => {
+  const location = useLocation();
+  const { state } = location;
   const [evenements, setEvenements] = useState([]);
   const [error, setError] = useState(null);
   const [originalEvents, setOriginalEvents] = useState([]);
@@ -39,9 +41,6 @@ const Evenements = () => {
       const titleMatch = title == '' || item.event.title.toLowerCase().includes(title.toLowerCase());
       const dateMatch = date == '' || new Date(item.event.dateStart).toLocaleDateString() === new Date(date).toLocaleDateString();
       const assoIdMatch = assoId == '' || item.assoId && item.assoId.toString() === assoId.toString();
-      console.log(titleMatch);
-      console.log(dateMatch);
-      console.log(assoIdMatch);
       return titleMatch && dateMatch && assoIdMatch;
     });
     setEvenements(filteredEvenements);
@@ -63,6 +62,15 @@ const Evenements = () => {
 
   const handleAssociationChange = (e) => {
     setAssoId(e.target.value);
+  };
+
+  const handleRegister = async (eventId) => {
+    try {
+      const response = useFetch('POST', `/api/event/${state.from}/register`)
+      alert('Votre inscription est enregistrer ! ');
+    } catch (error) {
+      alert("Une erreur s'est produite pendant l'enregistrement à cet évenement");
+    }
   };
 
 
@@ -97,7 +105,7 @@ const Evenements = () => {
                   <div className="card-footer">
                     <small className="text-muted">Date de début : {new Date(evenement.event.dateStart).toLocaleDateString()}</small>
                     <NavLink className="btn btn-dark me-2" to={`/evenement/${evenement.event.id}`} state={{ from: evenement.event.id }}>Voir l'évènement</NavLink>
-                    <button className="btn btn-primary">S'inscrire</button>
+                    <NavLink className="btn btn-primary" onClick={() => handleRegister(evenement.event.id)} state={{ from: evenement.event.id }}>S'inscrire</NavLink>
                   </div>
                 </div>
               </div>

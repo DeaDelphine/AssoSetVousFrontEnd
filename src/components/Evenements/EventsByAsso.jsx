@@ -10,6 +10,7 @@ const EventsByAsso = () => {
     const { state } = location;
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
+    
     useEffect(() => {
         const fetchEventsByAssociation = async () => {
             try {

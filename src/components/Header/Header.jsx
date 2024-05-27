@@ -16,7 +16,7 @@ function Header({ handleIsAuthenticated, isAuthenticated }) {
       const response = await useFetch('POST', '/api/logout');
       if (response){
       // Gére la réponse en fonction de ce que l'API renvoie
-      handleIsAuthenticated();
+        handleIsAuthenticated();
       // Redirige l'utilisateur vers la page d'accueil
         navigate('/connection');
       }
@@ -47,12 +47,15 @@ function Header({ handleIsAuthenticated, isAuthenticated }) {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   {isAuthenticated &&
-                    <li><NavLink className="dropdown-item" onClick={handleLogout}>Déconnexion</NavLink></li>
+                    <>
+                    <li><NavLink className="dropdown-item" onClick={handleLogout}>Déconnexion</NavLink></li>                   
+                    <li><NavLink className="dropdown-item" to="/monProfil">Mon Profil</NavLink></li>
+                    </>
                   }
                   {!isAuthenticated &&
                     <>
                       <li><NavLink className="dropdown-item" to="/connection">Connexion</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/register">Inscription</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/inscription">Inscription</NavLink></li>
                     </>
                   }
                 </ul>

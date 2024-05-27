@@ -14,7 +14,6 @@ const Associations = () => {
             try {
                 const data = await useFetch('GET', '/api/associations');
                 setAssociations(data);
-                console.log(data);
             } catch (err) {
                 setError(err);
 

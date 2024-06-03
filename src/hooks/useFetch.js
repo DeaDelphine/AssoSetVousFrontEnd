@@ -28,11 +28,11 @@ const useFetch = async (method, fetchRoute, dataToSend = {}) => {
         'Content-Type': 'application/json',
     }
     if (fetchRoute != '/api/login' && token != null) {
-        headers.token =  token;
+        headers.token = token;
     }
     let config = {
         method: method,
-        url: `http://localhost:8000${fetchRoute}`,
+        url: `https://assosetvous.fr${fetchRoute}`,
         headers: headers,
     };
 

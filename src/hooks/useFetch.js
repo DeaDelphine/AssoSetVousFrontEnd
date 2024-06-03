@@ -32,7 +32,7 @@ const useFetch = async (method, fetchRoute, dataToSend = {}) => {
     }
     let config = {
         method: method,
-        url: `https://assosetvous.fr${fetchRoute}`,
+        url: `http://localhost:8000${fetchRoute}`,
         headers: headers,
     };
 

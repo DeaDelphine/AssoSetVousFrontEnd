@@ -32,7 +32,7 @@ const LoginPage = ({ handleIsAuthenticated }) => {
             const response = await useFetch('POST', '/api/login', userData);
             
             if (response && response.token) {
-                console.log(response.token);
+                
                 localStorage.setItem('token', response.token);
                 handleIsAuthenticated();
                 // Redirige l'utilisateur vers la page d'accueil

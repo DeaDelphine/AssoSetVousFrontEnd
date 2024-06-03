@@ -33,7 +33,7 @@ const LoginPage = ({ handleIsAuthenticated }) => {
             
             if (response && response.token) {
                 console.log(response.token);
-                localStorage.setItem('token', response.token);
+                localStorage.setItem('AssosToken', response.token);
                 handleIsAuthenticated();
                 // Redirige l'utilisateur vers la page d'accueil
                 navigate('/');

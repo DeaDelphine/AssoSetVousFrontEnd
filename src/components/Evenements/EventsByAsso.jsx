@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { NavLink, useLocation } from 'react-router-dom';
 
-const EventsByAsso = () => {
+const EventsByAsso = ({ addNotificationMessages}) => {
     const location = useLocation();
     const { state } = location;
     const [events, setEvents] = useState([]);
@@ -17,6 +17,8 @@ const EventsByAsso = () => {
                 const data = await useFetch('GET', `/api/events/association/${state.from}`);
                 setEvents(data);
             } catch (error) {
+                console.log(error);
+                addNotificationMessages(error.response.data.message);
                 setError(error);
 
             }

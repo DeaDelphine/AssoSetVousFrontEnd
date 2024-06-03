@@ -4,7 +4,8 @@
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { NavLink, useLocation } from 'react-router-dom';
-const CategoryPage = () => {
+
+const CategoryPage = ({ addNotificationMessages }) => {
     const location = useLocation();
     const { state } = location;
     const [associations, setAssociations] = useState([]);
@@ -15,6 +16,7 @@ const CategoryPage = () => {
                 const data = await useFetch('GET', `/api/associations/category/${state.from}`);
                 setAssociations(data);
             } catch (error) {
+                addNotificationMessages(error.response.data.message);
                 setError(error);
 
             }

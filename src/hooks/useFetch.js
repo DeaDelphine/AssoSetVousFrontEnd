@@ -23,7 +23,7 @@ const useFetch = async (method, fetchRoute, dataToSend = {}) => {
         return false;
     }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('AssosToken');
     const headers = {
         'Content-Type': 'application/json',
     }
@@ -32,11 +32,10 @@ const useFetch = async (method, fetchRoute, dataToSend = {}) => {
     }
     let config = {
         method: method,
-        url: `https://assosetvous.fr${fetchRoute}`,
+        url: `http://localhost:8000${fetchRoute}`,
+        // url: `https://assosetvous.fr${fetchRoute}`,
         headers: headers,
     };
-
-    console.log(config);
 
     if (method === 'GET') {
         config.params = dataToSend;
@@ -46,9 +45,10 @@ const useFetch = async (method, fetchRoute, dataToSend = {}) => {
 
     try {
         const response = await axios(config);
+        if (fetchRoute == '/verify-token') return response;
         return response.data;
     } catch (error) {
-        console.log('Axios Error!', error);
+        console.log('Axios Error!');
         throw error;
     }
 };

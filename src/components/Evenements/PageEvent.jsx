@@ -14,7 +14,6 @@ const PageEvent = () => {
     const fetchEvent = async () => {
       try {
         const data = await useFetch('GET', `/api/event/${state.from}`);
-        console.log(data);
         setEvenement(data);
       } catch (error) {
         setError(error);

@@ -17,12 +17,16 @@ const CategoryPage = ({ addNotificationMessages }) => {
                 setAssociations(data);
             } catch (error) {
                 addNotificationMessages(error.response.data.message);
-                setError(error);
+                setError(error.response.data.message);
 
             }
         };
         fetchAssociationsByCategory();
     }, []);
+
+    if (error) {
+        return <div className="container mt-5">{error}</div>;
+    }
   return (
       <div className="container my-5">
           <div className="row justify-content-center">

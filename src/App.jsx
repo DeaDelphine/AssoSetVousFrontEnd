@@ -10,7 +10,6 @@ import Evenements from './components/Evenements/Evenements'
 import EventsByAsso from './components/Evenements/EventsByAsso'
 import PageEvent from './components/Evenements/PageEvent'
 import Footer from './components/Footer/Footer'
-import EventRegistrationForm from './components/Form/EventRegistrationForm'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import MonEspace from './components/MonEspace/MonEspace'
@@ -97,12 +96,11 @@ function App() {
             <Route exact path="/categories" element={<Categories />} />
             <Route exact path="/associations/category/:categorie" element={<CategoryPage addNotificationMessages={addNotificationMessages} />} />
             <Route exact path="/associations" element={<Associations />} />
-            <Route exact path="/evenements" element={<Evenements />} />
+            <Route exact path="/evenements" element={<Evenements addNotificationMessages={addNotificationMessages} />} />
             <Route exact path="/evenements/association/:association" element={<EventsByAsso addNotificationMessages={addNotificationMessages} />} />
             <Route exact path="/monProfil" element={<MonEspace />} />
             <Route exact path="/association/:associationSlug" element={<PageAssociation />} />
-            <Route exact path="/evenement/:id" element={<PageEvent />} />
-            <Route exact path="/evenement/register" element={<EventRegistrationForm />} />
+            <Route exact path="/evenement/:id" element={<PageEvent addNotificationMessages={addNotificationMessages} />} />
           </>
         )}
         <Route exact path="/inscription" element={<Register addNotificationMessages={addNotificationMessages} />} />

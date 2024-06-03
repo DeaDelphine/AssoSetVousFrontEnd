@@ -61,7 +61,7 @@ const Register = ({ addNotificationMessages }) => {
             const response = await useFetch('POST', '/api/register', formData);
             if (response) {
                 addNotificationMessages(response.message, 'success');
-                console.log(response.message);
+
                 navigate('/login');
             }
         } catch (error) {

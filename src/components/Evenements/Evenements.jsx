@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -6,7 +7,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import FilterComponent from './FiltersSearch';
 
-const Evenements = () => {
+const Evenements = ({ addNotificationMessages }) => {
   const location = useLocation();
   const { state } = location;
   const [evenements, setEvenements] = useState([]);
@@ -66,10 +67,11 @@ const Evenements = () => {
 
   const handleRegister = async (eventId) => {
     try {
-      const response = useFetch('POST', `/api/event/${state.from}/register`)
-      alert('Votre inscription est enregistrer ! ');
+      const response = await useFetch('POST', `/api/event/${eventId}/register`)
+      
+      addNotificationMessages(response.message, 'success');
     } catch (error) {
-      alert("Une erreur s'est produite pendant l'enregistrement à cet évenement");
+      addNotificationMessages(error.message, 'error');
     }
   };
 
@@ -105,7 +107,7 @@ const Evenements = () => {
                   <div className="card-footer">
                     <small className="text-muted">Date de début : {new Date(evenement.event.dateStart).toLocaleDateString()}</small>
                     <NavLink className="btn btn-dark me-2" to={`/evenement/${evenement.event.id}`} state={{ from: evenement.event.id }}>Voir l'évènement</NavLink>
-                    <NavLink className="btn btn-primary" onClick={() => handleRegister(evenement.event.id)} state={{ from: evenement.event.id }}>S'inscrire</NavLink>
+                    <NavLink className="btn btn-primary" onClick={() => handleRegister(evenement.event.id)} >S'inscrire</NavLink>
                   </div>
                 </div>
               </div>

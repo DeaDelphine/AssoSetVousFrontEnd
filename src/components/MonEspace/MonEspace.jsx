@@ -46,11 +46,24 @@ const MonEspace = () => {
     return <div className="container mt-5">Aucun profil trouvé.</div>;
   }
 
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const options = {
+      timeZone: "UTC",
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    return date.toLocaleString('fr-FR', options);
+  };
+
   return (
     <div className="container mt-5">
       <div className="card">
         <div className="card-header">
-          <h2>Profil de l'utilisateur</h2>
+          <h2>Bienvenue sur votre espace {user.firstName} !</h2>
         </div>
         <div className="card-body">
           <h5 className="card-title">Informations personnelles</h5>
@@ -63,18 +76,18 @@ const MonEspace = () => {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Actions</th>
+                  <th>Evenement :</th>
+                  <th>Date et heure de début : </th>
+                  <th>Date et heure de fin :  </th>
+                  <th>Actions :</th>
                 </tr>
               </thead>
               <tbody>
                 {events.map((event) => (
                   <tr key={event.id}>
                     <td>{event.title}</td>
-                    <td>{event.dateStart}</td>
-                    <td>{event.dateEnd}</td>
+                    <td>{formatDate(event.dateStart)}</td>
+                    <td>{formatDate(event.dateEnd)}</td>
                     <td>
                       <NavLink to={`/evenement/${event.id}`} className="btn btn-primary" state={{ from: event.id }}>Voir l'évènement</NavLink>
                     </td>

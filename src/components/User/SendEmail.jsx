@@ -1,5 +1,4 @@
 import nodemailer  from 'nodemailer';
-import render from '@react-email/render';
 import React from'react';
 import ReactDOMServer from 'react-dom/server';
 import EmailTemplate from './EmailTemplate';
@@ -11,7 +10,7 @@ const transporter = nodemailer.createTransport({
     secure: true, 
     auth: {
         user: 'contact@assosetvous.fr', 
-        pass: 'assosetvous8844'         
+        pass: '********'         
     }
 });
 

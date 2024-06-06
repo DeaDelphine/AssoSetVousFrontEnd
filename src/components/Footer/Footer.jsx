@@ -1,6 +1,3 @@
-import { Route, Routes } from "react-router-dom"
-import Cookies from "./Cookies"
-
 
 function Footer() {
   return (

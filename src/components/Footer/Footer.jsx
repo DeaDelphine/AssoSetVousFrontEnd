@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 
 function Footer() {
   return (
@@ -28,12 +30,12 @@ function Footer() {
 
             </ul>
           </div>
-          <div className="col-6 col-md d-flex">
+          <div className="col-6 col-md d-flex">     
             <ul className="list-unstyled">
-              <li><a href="#" className="text-muted">Mentions légales</a></li>
-              <li><a href="#" className="text-muted">Politique de confidentialité</a></li>
-              <li><a href="#" className="text-muted">Conditions générales</a></li>
-              <li><a href="#" className="text-muted">Gestion des Cookies</a></li>
+              <li><NavLink className="nav-link fs-5" to="/legals">Conditions générales</NavLink></li>
+              <li><NavLink className="nav-link fs-5" to="/privacyPolicy">Politique de confidentialité</NavLink></li>
+              <li><NavLink className="nav-link fs-5" to="/legalnotices">Mentions légales</NavLink></li>
+              <li><NavLink className="nav-link fs-5" to="/cookiemanagement">Gestion des Cookies</NavLink></li>
             </ul>
           </div>
         </div>

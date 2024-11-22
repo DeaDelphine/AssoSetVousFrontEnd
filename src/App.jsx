@@ -18,6 +18,10 @@ import LoginPage from './components/User/LoginPage'
 import Register from './components/User/Register'
 import PopupMessage from './components/default/PopupMessage'
 import customFetch from './hooks/useFetch'
+import Legals from './components/Legacy/Legals'
+import PrivacyPolicy from './components/Legacy/PrivacyPolicy'
+import Legalnotices from './components/Legacy/Legalnotices'
+import CookieManagement from './components/Legacy/CookieManagement'
 
 
 function App() {
@@ -104,12 +108,17 @@ function App() {
           </>
         )}
         <Route exact path="/inscription" element={<Register addNotificationMessages={addNotificationMessages} />} />
-        <Route exact path="/nousContacter" element={<NousContacter />} />
+        <Route exact path="/nousContacter" element={<NousContacter />} /> 
+        <Route exact path="/legals" element={<Legals />} />
+        <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
+        <Route exact path="/legalnotices" element={<Legalnotices />} />
+        <Route exact path="/cookiemanagement" element={<CookieManagement />} />
       </Routes>
       {showPopupNotification && <div className="popupMessage--container">
         {notificationMessages}
       </div>}
-      <Footer />
+      <Footer handleIsAuthenticated={handleIsAuthenticated} isAuthenticated={isAuthenticated}/>
+       
 
     </>
   )
